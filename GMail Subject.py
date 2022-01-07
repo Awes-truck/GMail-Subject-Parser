@@ -1,13 +1,14 @@
 import imaplib
 import email
 import csv
+import pwinput as pw
 
 mail = imaplib.IMAP4_SSL("imap.gmail.com")
 
 # User inputs their Gmail Credentials
 while True:
     username = input("GMail Email: ")
-    password = input("GMail Password: ")
+    password = pw.pwinput(prompt="GMail Password: ")
     try:
         mail.login(username, password)
         print ("Logged in as %r!" %username)
@@ -36,6 +37,6 @@ with open('gmail_data.csv', 'w', newline='') as csvfile:
         print(newSubject + " added!")
 
         writer.writerow(newSubject.split(" "))
-csvfile.close()      
+csvfile.close()
 mail.close()
 mail.logout()
